@@ -1,0 +1,958 @@
+--coolallball
+HoldE=false
+Tool=script.Parent
+Equipped=false
+Player=game.Players.LocalPlayer
+repeat 
+	wait()
+until Player
+Character=Player.Character
+repeat
+	wait()
+until Character
+Mouse=Player:GetMouse()
+Torso=Character.Torso
+RArm=Character["Right Arm"]
+LArm=Character["Left Arm"]
+RLeg=Character["Right Leg"]
+LLeg=Character["Left Leg"]
+LS=Torso["Left Shoulder"]
+LH=Torso["Left Hip"]
+RS=Torso["Right Shoulder"]
+RH=Torso["Right Hip"]
+necko=CFrame.new(0, 1, 0, -1, -0, -0, 0, 0, 1, 0, 1, 0)
+LHC0=CFrame.new(-1,-1,0,-0,-0,-1,0,1,0,1,0,0)
+LSC0=CFrame.new(-1, 0.5, 0, -0, -0, -1, 0, 1, 0, 1, 0, 0)
+RHC0=CFrame.new(1,-1,0,0,0,1,0,1,0,-1,-0,-0)
+RSC0=CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, 0, -1, -0, -0)
+ROOTC0 = CFrame.new(0, 0, 0, -1, -0, -0, 0, 0, 1, 0, 1, 0)
+Neck=Character.Torso.Neck
+Human=Character:FindFirstChild("Humanoid")
+h=game:service'RunService'.Heartbeat
+local camera = workspace.CurrentCamera
+Debounce=false
+world=false
+function part(parent,anchored,collide,size,cframe,bcol,material,trans,meshtype,meshscale)
+	local partt = Instance.new("Part",parent)
+	partt.Anchored = anchored
+	partt.CanCollide = collide
+	partt.Size = size
+	partt.CFrame = cframe
+	partt.BrickColor = BrickColor.new(bcol)
+	partt.Material = material
+	partt.Transparency = trans
+	if meshtype then
+		local mesh = Instance.new("SpecialMesh", partt)
+		mesh.MeshType = meshtype
+		mesh.Scale = meshscale
+	end
+	return partt
+end
+function BloodSpurt(parent,cframe)
+	for i=1,5 do
+		spawn(function()
+		local bl=Instance.new("Part",parent)
+		bl.Size=Vector3.new(0,0,0)
+		bl.BrickColor=BrickColor.new("Really red")
+		bl.Anchored=true
+		bl.CanCollide=false
+		bl.CFrame=cframe
+		
+		local bp=Instance.new("BodyPosition")
+		bp.maxForce=Vector3.new(math.huge,math.huge,math.huge)
+		bp.Position=bl.Position+Vector3.new(math.random(-5,5),math.random(-5,5),math.random(-5,5))
+		bl.Anchored=false
+		bp.Parent=bl
+		wait()
+		bp.Parent=nil
+		end)
+	end
+end
+Human.MaxHealth=math.huge
+knifeS=Instance.new("Sound",Character)
+knifeS.SoundId="rbxassetid://616593932"
+knifeS.Volume=2
+ZWRDO=Instance.new("Sound",Character)
+ZWRDO.SoundId="rbxassetid://188959431"
+ZWRDO.Volume=.2
+
+Mouse.KeyDown:connect(function(Key)
+	if Key=="p" and Debounce==false and world==false then
+		Debounce=true
+		print("ZA WARUDO")
+		print("TOKI YO TOMARE")
+		local ZA=Instance.new("Sound",Character)
+		ZA.SoundId="rbxassetid://274698941"
+			ZA:Play()
+			ZA.Volume=4
+			ZWRDO:Play()
+			Human.WalkSpeed=0
+			spawn(function()
+				for i=1,100 do
+					RS.C0=RS.C0*CFrame.Angles(math.rad(0),math.rad(-.4),math.rad(.9))
+					LS.C0=LS.C0*CFrame.Angles(math.rad(0),math.rad(.4),math.rad(-.9))
+					Neck.C0=Neck.C0*CFrame.Angles(math.rad(-.1),math.rad(0),math.rad(0))
+					h:wait()
+				end
+			end)
+			--[[RS.C0=RS.C0*CFrame.Angles(math.rad(0),math.rad(-40),math.rad(90))
+			LS.C0=LS.C0*CFrame.Angles(math.rad(0),math.rad(40),math.rad(-90))
+			Neck.C0=Neck.C0*CFrame.Angles(math.rad(-10),math.rad(0),math.rad(0))]]
+			local sphere=Instance.new("Part",Character)
+			sphere.Anchored=true
+			sphere.CanCollide=false
+			sphere.CFrame=Torso.CFrame
+			sphere.Size=Vector3.new(1,1,1)
+			sphere.TopSurface=0
+			sphere.BottomSurface=0
+			sphere.Reflectance=.5
+			sphere.Transparency=1
+			sphere.BrickColor=BrickColor.new("Lapis")
+			local ball=Instance.new("SpecialMesh",sphere)
+			ball.MeshType="Sphere"
+			ball.Scale=Vector3.new(4,4,4)
+			wait(2)
+			sphere.Transparency=0
+			spawn(function()
+			for i=1,50 do
+				ball.Scale=ball.Scale+Vector3.new(10,10,10)
+				sphere.Transparency=i/50
+				h:wait()
+			end
+			sphere.BrickColor=BrickColor.new("New Yeller")
+			wait(.3)
+			for i=1,25 do
+				ball.Scale=ball.Scale-Vector3.new(20,20,20)
+				sphere.Transparency=-i/25
+				h:wait()
+			end
+			sphere:Destroy()
+			ball:Destroy()
+			Human.WalkSpeed=16
+			end)
+			
+		AnchoredObjects={}
+		for i, v in pairs(workspace:GetChildren()) do
+			if v.Name~=Player.Name then
+			if v.ClassName=="Model" then
+				for ii, vv in pairs(v:GetChildren()) do
+					if vv.Name=="Torso" then
+						if vv.Anchored==false then vv.Anchored=true
+							table.insert(AnchoredObjects,vv)
+							wait()
+						
+					end
+				end
+				end
+			end
+			end
+		end
+		game.Lighting.OutdoorAmbient=Color3.new(0,14,135)
+		game.Lighting.TimeOfDay="00:00:00"
+		print("Time has stopped.")
+		wait(1)
+		for i=1,100 do
+					RS.C0=RS.C0*CFrame.Angles(math.rad(0),math.rad(.4),math.rad(-.9))
+					LS.C0=LS.C0*CFrame.Angles(math.rad(0),math.rad(-.4),math.rad(.9))
+					Neck.C0=Neck.C0*CFrame.Angles(math.rad(.1),math.rad(0),math.rad(0))
+		end
+		Debounce=false
+		world=true
+		--[[local Mover=Instance.new("HopperBin")
+		Mover.Parent=Player.StarterPack]]
+		wait(11)
+		ZA:Destroy()
+		for i, v in pairs(AnchoredObjects) do
+			if v.Anchored==true then
+				v.Anchored=false
+			end
+		end
+		print("Time continues to flow..")
+		ZWRDO:Stop()
+		game.Lighting.OutdoorAmbient=Color3.new(135/255, 135/255, 128/255)
+		game.Lighting.TimeOfDay="15:00:00"
+		for i=1,#AnchoredObjects do
+			table.remove(AnchoredObjects,i)
+		end
+		world=false
+	end
+end)
+knifing=false
+Mouse.KeyDown:connect(function(Key)
+	if Key=="r" and world==true and Debounce==false then
+		--KNIFEUU
+		Debounce=true
+		knifing=true
+		local rad=math.rad
+		Torso.Anchored=true
+		local Knife=part(Character,false,false,Vector3.new(1,1,1),Torso.CFrame*CFrame.new(1.2,3,-3),Color3.new(217/255,217/255,217/255),"Neon",0)
+		local Toward=part(Character,true,false,Vector3.new(1,1,1),Knife.CFrame*CFrame.new(0,0,-400),Color3.new(0,0,0),"Neon",1)
+		local HBOX=part(Character,false,false,Vector3.new(1,1,1),Torso.CFrame*CFrame.new(1.5,3,-4),Color3.new(0,0,0),"Plastic",1)
+		local mosh=Instance.new("SpecialMesh",Knife)
+		mosh.MeshId="rbxassetid://202083123"
+		mosh.Scale=Vector3.new(1,1,1)
+			
+		for i=1,10 do h:wait()
+		Torso.CFrame=Torso.CFrame*CFrame.new(0,-.03,0)*CFrame.Angles((rad(-2)),(rad(0)),(rad(0)))
+			RH.C0=RH.C0*CFrame.Angles(rad(-.3), rad(0), rad(2))*CFrame.new(.065,0,0)
+			LH.C0=LH.C0*CFrame.Angles(rad(-.3), rad(0), rad(1.3))*CFrame.new(0,.03,0)
+			LS.C0=LS.C0*CFrame.Angles(rad(-.3), rad(0), rad(3.5))*CFrame.new(0,0,0)
+		RS.C0=RS.C0*CFrame.Angles(rad(-.3), rad(0), rad(12))*CFrame.new(0,0,0)
+		end--202083162
+		Knife.Anchored=false
+			local BEP=Instance.new("BodyVelocity")
+			BEP.maxForce=Vector3.new(math.huge,math.huge,math.huge)
+			BEP.Velocity=(Toward.Position-HBOX.Position).unit*70
+			BEP.Parent=HBOX
+
+			local BEP2=Instance.new("BodyVelocity")
+			BEP2.maxForce=Vector3.new(math.huge,math.huge,math.huge)
+			BEP2.Velocity=(Toward.Position-Knife.Position).unit*70
+			BEP2.Parent=Knife
+			
+			wait(.1)
+			spawn(function()
+				spawn(function()
+					knifeS:Play()
+					wait(.7)
+					knifeS:Stop()
+				end)
+				wait(1)
+				for i=1,10 do 
+		Torso.CFrame=Torso.CFrame*CFrame.new(0,.03,0)*CFrame.Angles((rad(2)),(rad(0)),(rad(0)))
+			RH.C0=RH.C0*CFrame.Angles(rad(.3), rad(0), rad(-2))*CFrame.new(-.065,0,0)
+			LH.C0=LH.C0*CFrame.Angles(rad(.3), rad(0), rad(-1.3))*CFrame.new(0,-.03,0)
+			LS.C0=LS.C0*CFrame.Angles(rad(.3), rad(0), rad(-3.5))*CFrame.new(0,0,0)
+		RS.C0=RS.C0*CFrame.Angles(rad(.3), rad(0), rad(-12))*CFrame.new(0,0,0)
+				end--202083162
+				Torso.Anchored=false
+			end)
+			HBOX.Touched:connect(function(Hit)
+				if Hit.Name~=HBOX.Name and Hit.Name~=Player.Name then
+				print"hit!"
+				Knife.Anchored=true
+				BEP.Parent=nil
+				--BEP2.Parent=nil
+				HBOX:Destroy()
+					print"yey"
+				Knife.Anchored=true
+				--Knife.CFrame=Knife.CFrame*CFrame.new(0,0,.5)
+				repeat wait()
+					
+				until world==false
+				Knife.Anchored=false
+				Knife.Touched:connect(function(Het)
+					if Het.Name~=Player.Name then
+					if Het.Parent:FindFirstChild("Humanoid") then
+						BloodSpurt(Character,Knife.CFrame)
+					--Knife:Destroy()
+					BEP2:Remove()
+					local hoom=Het.Parent:FindFirstChild("Humanoid")
+					hoom.Health=hoom.Health-100
+					
+					end
+					end
+				end)
+				end
+			end)
+			Debounce=false
+	end
+end)
+
+spawn(function()
+	while true do
+		wait()
+		if Human.Health<=0 then
+			game.Lighting.OutdoorAmbient=Color3.new(135/255, 135/255, 128/255)
+		game.Lighting.TimeOfDay="15:00:00"
+		for i, v in pairs(AnchoredObjects) do
+			if v.Anchored==true then
+				v.Anchored=false
+			end
+		end
+		end
+		
+	end
+end)
+--[[
+	Torso.CFrame=Torso.CFrame*CFrame.new(0,-.3,0)*CFrame.Angles((math.rad(-13)),(math.rad(0)),(math.rad(0)))
+					RH.C0=RH.C0*CFrame.new(.3,0,0)*CFrame.Angles(math.rad(-3),math.rad(0),math.rad(13))
+					LH.C0=LH.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-3),math.rad(0),math.rad(15))
+					RS.C0=RS.C0*CFrame.new(1,0,0)*CFrame.Angles(math.rad(-20),math.rad(10),math.rad(110))
+					LS.C0=LS.C0*CFrame.new(1,0,0)*CFrame.Angles(math.rad(-20),math.rad(-10),math.rad(-110))
+					Neck.C0=Neck.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-13),math.rad(0),math.rad(0))
+	]]
+--]]
+--Muda MUDA MUDA MUDAAAA
+Mouse.KeyDown:connect(function(Key)
+	if Key=="e" and HoldE==false then
+		HoldE=true
+		Torso.Anchored=true
+		local Playing=false
+		--pos
+					Torso.CFrame=Torso.CFrame*CFrame.new(0,-.3,0)*CFrame.Angles((math.rad(-13)),(math.rad(0)),(math.rad(0)))
+					RH.C0=RH.C0*CFrame.new(.3,0,0)*CFrame.Angles(math.rad(-3),math.rad(0),math.rad(13))
+					LH.C0=LH.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-3),math.rad(0),math.rad(15))
+					RS.C0=RS.C0*CFrame.new(1,0,0)*CFrame.Angles(math.rad(-20),math.rad(10),math.rad(110))
+					LS.C0=LS.C0*CFrame.new(1,0,0)*CFrame.Angles(math.rad(-20),math.rad(-10),math.rad(-110))
+					Neck.C0=Neck.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-13),math.rad(0),math.rad(0))
+				--arms
+				local Hitbox=Instance.new("Part",Character)
+				Hitbox.Anchored=true
+				Hitbox.CanCollide=false
+				Hitbox.Size=Vector3.new(4,7,4)
+				Hitbox.Transparency=1
+				Hitbox.CFrame=Torso.CFrame*CFrame.new(0,0,-2.3)
+				RArm.Touched:connect(function(hit)
+					if hit.Parent:FindFirstChild("Humanoid") then
+						if hit.Parent.Name~=Player.Name and HoldE==true then
+							local Hooman=hit.Parent:FindFirstChild("Humanoid")
+							Hooman.Health=Hooman.Health-10
+							local effectpart=Instance.new("Part",Character)
+							effectpart.Size=Vector3.new(1,1,1)
+							effectpart.CFrame=hit.Parent.Torso.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+							effectpart.Anchored=true
+							effectpart.CanCollide=false
+							local Ring=Instance.new("SpecialMesh",effectpart)
+							Ring.MeshId="rbxassetid://3270017"
+							Ring.Scale=Vector3.new(2,2,2)
+							for i=1,8 do
+								Ring.Scale=Ring.Scale+Vector3.new(1,1,1)
+								effectpart.Transparency=i/8
+								wait()
+							end
+							effectpart:Destroy()
+						end
+					end
+				end)
+				LArm.Touched:connect(function(hit)
+					if hit.Parent:FindFirstChild("Humanoid") then
+						if hit.Parent.Name~=Player.Name and HoldE==true then
+							local Hooman=hit.Parent:FindFirstChild("Humanoid")
+							Hooman.Health=Hooman.Health-10
+							local effectpart=Instance.new("Part",Character)
+							effectpart.Size=Vector3.new(1,1,1)
+							effectpart.CFrame=hit.Parent.Torso.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+							effectpart.Anchored=true
+							effectpart.CanCollide=false
+							local Ring=Instance.new("SpecialMesh",effectpart)
+							Ring.MeshId="rbxassetid://3270017"
+							Ring.Scale=Vector3.new(2,2,2)
+							for i=1,8 do
+								Ring.Scale=Ring.Scale+Vector3.new(1,1,1)
+								effectpart.Transparency=i/8
+								wait()
+							end
+							effectpart:Destroy()
+						end
+					end
+				end)
+				spawn(function()
+					local MUDA=Instance.new("Sound",Character)
+					MUDA.SoundId="rbxassetid://601465752"
+					MUDA.Volume=2
+					while HoldE==true do
+						for i=1,3 do
+							RS.C0=RS.C0*CFrame.new(0,2/3,0)
+							LS.C0=LS.C0*CFrame.new(0,-2/3,0)
+							h:wait()
+						end
+						for i=1,3 do
+							RS.C0=RS.C0*CFrame.new(0,-2/3,0)
+							LS.C0=LS.C0*CFrame.new(0,2/3,0)
+							h:wait()
+						end
+						if HoldE==true and Playing==false then
+							spawn(function()
+							MUDA:Play()
+							Playing=true
+							wait(6)
+							Playing=false
+							end)
+						end
+					end
+					MUDA:Stop()
+				end)
+while HoldE==true do
+	Hitbox.CFrame=Torso.CFrame*CFrame.new(0,0,-2.3)
+	wait()
+	Hitbox.CFrame=Torso.CFrame*CFrame.new(0,0,-2.1)
+
+end
+	Hitbox:Destroy()			
+	end
+end)
+Mouse.KeyUp:connect(function(Key)
+	if Key=="e" and HoldE==true then
+		HoldE=false
+		wait(.1)
+		Neck.C0 = necko
+		LH.C0 = LHC0
+		LS.C0 = LSC0
+		RH.C0 = RHC0
+		RS.C0 = RSC0
+		Torso.Anchored=false
+	end
+end)
+SYO=false
+local function rays(pos1,pos2,maxlength,bcol,material)
+		local ray=Ray.new(pos1.Position,(pos2-pos1.Position).unit*maxlength)
+		local part, position = workspace:FindPartOnRay(ray, Character, false, true)
+		local beam = Instance.new("Part", workspace)
+		beam.BrickColor = BrickColor.new(bcol)
+		beam.FormFactor = "Custom"
+		beam.Material = material
+		beam.Transparency = 0
+		beam.Anchored = true
+		beam.Locked = true
+		beam.CanCollide = false
+		local dist=(pos1.Position-position).magnitude
+		beam.Size=Vector3.new(.3,.3,dist)
+		beam.CFrame=CFrame.new(pos1.CFrame.p,position)*CFrame.new(0,0,-dist/2)
+		for i=1,10 do
+			beam.Transparency=i/10
+			wait()
+		end
+		beam:Destroy()
+		end
+--SUNLIGHT YELLOW OVERDRIVE
+Mouse.KeyDown:connect(function(Key)
+	if Key=="x" and Debounce==false then
+		Debounce=true
+		if Character.Animate.Disabled==false then
+			Character.Animate.Disabled=true
+		end
+		SYO=true
+		local SUNLIGHT=Instance.new("Sound",Character)
+		SUNLIGHT.SoundId="rbxassetid://538732827"
+		SUNLIGHT.Volume=.2
+		SUNLIGHT:Play()
+		local Elec=Instance.new("Sound",Character)
+		Elec.SoundId="rbxassetid://186130717"
+		Torso.Anchored=true
+		for i=1,100 do
+					Torso.CFrame=Torso.CFrame*CFrame.new(0,0,0)*CFrame.Angles((math.rad(0)),(math.rad(-.2)),(math.rad(0)))
+					RH.C0=RH.C0*CFrame.new(.003,0,0)*CFrame.Angles(math.rad(-.03),math.rad(.2),math.rad(.13))
+					LH.C0=LH.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-.03),math.rad(.2),math.rad(.15))
+					Neck.C0=Neck.C0*CFrame.Angles(math.rad(.2),math.rad(0),math.rad(0))
+					LS.C0=LS.C0*CFrame.new(-.003,0,0)*CFrame.Angles(math.rad(-.2),math.rad(0),math.rad(-.9))
+					RS.C0=RS.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-.2),math.rad(0),math.rad(-.5))
+					h:wait()
+		end
+		local PEPART=Instance.new("Part",Character)
+		PEPART.Size=Vector3.new(3,0,3)
+		PEPART.CFrame=Torso.CFrame*CFrame.new(0,-3,0)
+		PEPART.Transparency=1
+		PEPART.Anchored=true
+		PEPART.CanCollide=false
+		local PEPART2=PEPART:Clone()
+		PEPART2.Parent=Character
+		PEPART2.Size=Vector3.new(5,0,5)
+		PEPART2.Transparency=1
+		local PE2=Instance.new("ParticleEmitter",PEPART)
+		PE2.Color=ColorSequence.new(Color3.new(1,1,0),Color3.new(1,1,0))
+		PE2.Lifetime=NumberRange.new(1.3,1.3,1.3)
+		PE2.Texture="rbxassetid://298035054"
+		PE2.Size=NumberSequence.new(2,2,2)
+		local PE1=Instance.new("ParticleEmitter",PEPART)
+		PE1.Color=ColorSequence.new(Color3.new(1,1,0),Color3.new(1,1,0))
+		PE1.Lifetime=NumberRange.new(1.3,1.3,1.3)
+		Elec:Play()
+		for i=1,30 do
+		local p1=Instance.new("Part",Character)
+	p1.Size=Vector3.new(0,0,0)
+	p1.CanCollide=false
+	p1.Anchored=true
+	p1.Transparency=1
+	local p2=p1:Clone()
+	local p3=p2:Clone()
+	local p4=p2:Clone()
+	local p5=p4:Clone()
+	local p6=p5:Clone()
+	p3.Parent=Character
+	p2.Parent=Character
+	p4.Parent=Character
+	p5.Parent=Character
+	p6.Parent=Character
+	p1.CFrame=Character.Torso.CFrame
+	p2.CFrame=p1.CFrame*CFrame.new(math.random(-2,2),math.random(-2,2),math.random(-2,2))
+	p3.CFrame=p2.CFrame*CFrame.new(math.random(-2,2),math.random(-2,2),math.random(-2,2))
+	p4.CFrame=p3.CFrame*CFrame.new(math.random(-2,2),math.random(-2,2),math.random(-2,2))
+	p5.CFrame=p4.CFrame*CFrame.new(math.random(-2,2),math.random(-2,2),math.random(-2,2))
+	p6.CFrame=p5.CFrame*CFrame.new(math.random(-2,2),math.random(-2,2),math.random(-2,2))
+	
+	spawn(function()
+	rays(p1,p2.Position,3,"Deep orange","Neon")
+	end)
+	spawn(function()
+	rays(p2,p3.Position,3,"Deep orange","Neon")
+	end)
+	spawn(function()
+	rays(p3,p4.Position,3,"Deep orange","Neon")
+	end)
+	spawn(function()
+	rays(p4,p5.Position,3,"Deep orange","Neon")
+	end)
+	spawn(function()
+	rays(p5,p6.Position,3,"Deep orange","Neon")
+	end)
+	p1:Destroy()
+	p2:Destroy()
+	p3:Destroy()
+	p4:Destroy()
+	p5:Destroy()
+	p6:Destroy()
+		wait()
+		end
+		local HitFound=false
+		local Hitbox=Instance.new("Part",Character)
+		Hitbox.Size=Vector3.new(4,6,4)
+		Hitbox.Anchored=true
+		Hitbox.CanCollide=false
+Hitbox.Transparency=1
+		Hitbox.CFrame=Torso.CFrame*CFrame.new(0,0,-4)
+		Hitbox.Touched:connect(function(Hit)
+			if Hit.Parent:FindFirstChild("Humanoid") then
+				if Hit.Parent.Name~=Player.Name then
+			HitFound=true
+			
+			Hitbox:Destroy()
+			local Target=Hit.Parent
+			local Hooman=Target:FindFirstChild("Humanoid")
+			local OTorso=Target.Torso
+			local BPER=Instance.new("Part",Character)
+			BPER.Anchored=true
+			BPER.CanCollide=false
+			BPER.Transparency=1
+			BPER.CFrame=Torso.CFrame*CFrame.Angles(0,math.rad(20),0,0)*CFrame.new(0,5,-10)
+			BP=Instance.new("BodyPosition")
+			BP.maxForce=Vector3.new(math.huge,math.huge,math.huge)
+			BP.Position=BPER.Position
+			BP.Parent=OTorso
+			local YELLOW=Instance.new("Sound",Character)
+			YELLOW.SoundId="rbxassetid://624164065"
+			YELLOW.Volume=3
+			spawn(function()
+			while HitFound==true do
+				if Human.Health==0 then
+					BP:Destroy()
+				end
+				wait()
+			end
+			end)
+			wait(2)
+				Neck.C0 = necko
+		LH.C0 = LHC0
+		LS.C0 = LSC0
+		RH.C0 = RHC0
+		RS.C0 = RSC0
+		Torso.CFrame=OTorso.CFrame*CFrame.new(0,0,2.3)
+		PEPART:Destroy()
+		PEPART2:Destroy()
+			SUNLIGHT:Destroy()
+			YELLOW:Play()
+			Torso.CFrame=Torso.CFrame*CFrame.new(0,-.3,0)*CFrame.Angles((math.rad(-13)),(math.rad(0)),(math.rad(0)))
+					RH.C0=RH.C0*CFrame.new(.3,0,0)*CFrame.Angles(math.rad(-3),math.rad(0),math.rad(13))
+					LH.C0=LH.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-3),math.rad(0),math.rad(15))
+					RS.C0=RS.C0*CFrame.new(1,0,0)*CFrame.Angles(math.rad(-20),math.rad(10),math.rad(110))
+					LS.C0=LS.C0*CFrame.new(1,0,0)*CFrame.Angles(math.rad(-20),math.rad(-10),math.rad(-110))
+					Neck.C0=Neck.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(-13),math.rad(0),math.rad(0))
+						local function balleff()
+							spawn(function()
+							local ball=Instance.new("Part",Character)
+							ball.CanCollide=false
+							ball.Anchored=true
+							ball.Transparency=1
+							ball.Size=Vector3.new(1,1,1)
+							ball.CFrame=OTorso.CFrame
+							ball.BrickColor=BrickColor.new("Deep orange")
+							ball.Material="Neon"
+							local sp=Instance.new("SpecialMesh",ball)
+							sp.Scale=Vector3.new(1,1,1)
+							sp.MeshType="Sphere"
+							for i=1,13 do
+								sp.Scale=sp.Scale+Vector3.new(2,2,2)
+								ball.Transparency=i/13
+								wait()
+							end
+							end)
+						end
+					for i=1,30 do
+						balleff()
+					for i=1,3 do
+							RS.C0=RS.C0*CFrame.new(0,2/3,0)
+							LS.C0=LS.C0*CFrame.new(0,-2/3,0)
+							h:wait()
+						end
+						for i=1,3 do
+							RS.C0=RS.C0*CFrame.new(0,-2/3,0)
+							LS.C0=LS.C0*CFrame.new(0,2/3,0)
+							h:wait()
+						end
+						h:wait()
+						Hooman.Health=Hooman.Health-20
+						end
+				end
+				Torso.Anchored=false
+				Character.Animate.Disabled=false
+					Neck.C0 = necko
+		LH.C0 = LHC0
+		LS.C0 = LSC0
+		RH.C0 = RHC0
+		RS.C0 = RSC0
+		Torso.Anchored=false
+		HitFound=false
+		BP:Destroy()
+		
+			end
+		end)
+		for i=1,360/4 do
+			Hitbox.CFrame=Hitbox.CFrame*CFrame.Angles(math.rad(-4),math.rad(-4),math.rad(-4))
+			if HitFound==true then
+				break
+			end
+			h:wait()
+		end
+		if HitFound==false then
+		Hitbox:Destroy()
+			Neck.C0 = necko
+		LH.C0 = LHC0
+		LS.C0 = LSC0
+		RH.C0 = RHC0
+		RS.C0 = RSC0
+		Torso.Anchored=false
+		HitFound=false
+		PEPART:Destroy()
+		PEPART2:Destroy()
+		SUNLIGHT:Destroy()
+		Character.Animate.Disabled=false
+		end
+		Debounce=false
+	end
+end)
+walkkeys={}
+Mouse.KeyDown:connect(function(Key)
+	if Key=="w" or "a" or "s" or "d" then
+		table.insert(walkkeys,Key)
+	end
+end)
+spawn(function()
+while wait() do
+	if walkkeys[1] or walkkeys[2] or walkkeys[3] or walkkeys[4] then
+		--walking
+	else
+		--idle
+	end
+end
+end)
+Mouse.KeyUp:connect(function(Key)
+	if Key=="w" or "a" or "s" or "d" then
+		for i, v in pairs(walkkeys) do
+			if v=="w" or "a" or "s" or "d" then
+				table.remove(walkkeys,i)
+			end
+		end
+	end
+end)
+local trans={}
+		for i=0,1,.1 do
+			table.insert(trans,NumberSequenceKeypoint.new(i,i,i))
+		end
+local sizes={NumberSequenceKeypoint.new(0,0.988,0),NumberSequenceKeypoint.new(0.0399,0.988,0),NumberSequenceKeypoint.new(0.52,0.617,0),
+	NumberSequenceKeypoint.new(1,0.185,0)}
+
+Mouse.KeyDown:connect(function(Key)
+	if Key=="f" and Debounce==false then
+		--EMERALD SPLASHO
+		Debounce=true
+		local bemz={}
+		local HasHit=false
+		local EpicOver=false
+		Torso.Anchored=true
+		for i=1,100 do
+		Torso.CFrame=Torso.CFrame*CFrame.new(0,0,0)*CFrame.Angles((math.rad(0)),(math.rad(-.2)),(math.rad(0)))
+		RH.C0=RH.C0*CFrame.new(.003,0,0)*CFrame.Angles(math.rad(0),math.rad(.20),math.rad(.05))
+		LH.C0=LH.C0*CFrame.new(.004,0,0)*CFrame.Angles(math.rad(-.10),math.rad(.20),math.rad(.10))
+		RS.C0=RS.C0*CFrame.new(.005,0,0)*CFrame.Angles(math.rad(0),math.rad(.30),math.rad(.90))
+		LS.C0=LS.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(0),math.rad(-.45),math.rad(-.90))
+		Neck.C0=Neck.C0*CFrame.new(0,0,0)*CFrame.Angles(math.rad(0),math.rad(0),math.rad(.20))
+		h:wait()
+		end
+		local PosPart=Instance.new("Part",Character)
+		PosPart.Anchored=true
+		PosPart.CanCollide=false
+		PosPart.Size=Vector3.new(0,0,0)
+		PosPart.Transparency=1
+		PosPart.CFrame=Torso.CFrame*CFrame.new(0,.5,-2)*CFrame.Angles(0,math.rad(20),0)
+		local PE=Instance.new("ParticleEmitter",PosPart)
+		PE.Color=ColorSequence.new(Color3.new(0,1,0),Color3.new(0,1,0))
+		PE.Lifetime=NumberRange.new(.1,.1,.1)
+		PE.Rate=50
+		local ShootTable={}
+		local function Shoot()
+			spawn(function()
+			local em=Instance.new("Part",Character)
+			em.Size=Vector3.new(3,3,3)
+			em.CFrame=PosPart.CFrame*CFrame.new(math.random(-2,2),math.random(-2,2),0)
+			em.Anchored=true
+			em.CanCollide=false
+			em.Color=Color3.new(0,1,0)
+			em.Material="Neon"
+			em.Name="em"
+			table.insert(ShootTable,em)
+		local er=Instance.new("SpecialMesh",em)
+			er.MeshType="Sphere"
+			er.Scale=Vector3.new(2,2,4)
+			local trail=Instance.new("ParticleEmitter",em)
+			em.Size=Vector3.new(0,0,0)
+			trail.Texture="rbxassetid://170478374"
+			trail.Transparency=NumberSequence.new(trans)
+			trail.LockedToPart=true
+			trail.Rate=499999997952.000
+			trail.Size=NumberSequence.new(sizes)
+			trail.Lifetime=NumberRange.new(5,5,5)
+			trail.Speed=NumberRange.new(20,20,20)
+			trail.LightEmission=1
+			trail.EmissionDirection="Back"
+			
+			local HitBParent=part(Character,true,false,Vector3.new(1,1,1),PosPart.CFrame*CFrame.new(0,0,-320),Color3.new(0,0,0),"Neon",1)
+			local HITBOX=part(Character,false,false,Vector3.new(7,7,7),PosPart.CFrame,Color3.new(0,0,0),"Plastic",1)
+			local BEP=Instance.new("BodyVelocity")
+			BEP.maxForce=Vector3.new(math.huge,math.huge,math.huge)
+			BEP.Velocity=(HitBParent.Position-HITBOX.Position).unit*121
+			BEP.Parent=HITBOX
+			
+			HITBOX.Touched:connect(function(Hit)
+				if Hit.Parent:FindFirstChild("Humanoid") then
+					if Hit.Parent.Name~=Player.Name then
+						if HasHit==false then
+						HasHit=true
+						for i=1,#ShootTable do
+							table.remove(ShootTable,i)
+						end
+						HITBOX:Destroy()
+						print("HIT")
+						local Target=Hit.Parent
+						local OTorso=Target.Torso
+						local Hooman=Target:FindFirstChild("Humanoid")
+						camera.CameraType = Enum.CameraType.Scriptable
+						camera.CameraSubject = OTorso
+						spawn(function()
+							
+						
+							wait(2.8)
+							for i=1,18.2,.1 do
+								if Human.Health<=0 then
+										game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+game.Workspace.CurrentCamera.CameraType = "Custom"
+break
+								end
+								if Human.Health<=0 then else
+	camera.CoordinateFrame=CFrame.new(OTorso.Position)*CFrame.Angles(0,i,0)*CFrame.new(0,0,i+10)
+	h:wait() end
+							end
+							for i=1,130 do
+							camera.CoordinateFrame=CFrame.new(OTorso.Position)*CFrame.new(0,0,i+40)
+							h:wait()
+							end
+							game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+game.Workspace.CurrentCamera.CameraType = "Custom"
+
+						end)
+						local Beams={}
+						OTorso.Anchored=true
+						for i=1,10 do
+							local bem=Instance.new("Part",Character)
+							bem.Size=Vector3.new(1,100,1)
+							bem.Anchored=true
+							bem.CanCollide=false
+							bem.Color=Color3.new(0,1,0)
+							bem.TopSurface=0
+							bem.BottomSurface=0
+							bem.Material="Neon"
+							bem.Transparency=.9
+							bem.Name="GreenBean"
+							bem.CFrame=OTorso.CFrame*CFrame.new(math.random(-10,10),math.random(-10,10),math.random(-10,10))*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+							table.insert(bemz,bem)
+							spawn(function()
+								wait(7.3)
+								bem:Destroy()
+							end)
+							bem.Touched:connect(function(Hit)
+								if Hit.Name==Target.Name then
+									bem:Destroy()
+								end
+							end)
+						end
+					
+						
+						local function Shoot2()
+							spawn(function()
+							local em=Instance.new("Part",Character)
+			em.Size=Vector3.new(1,1,1)
+			em.CFrame=OTorso.CFrame*CFrame.new(math.random(-100,100),math.random(-100,100),math.random(-100,100))
+			em.Anchored=true
+			em.CanCollide=false
+			em.Color=Color3.new(0,1,0)
+			em.Material="Neon"
+			em.Name="em2"
+			em.Shape="Ball"
+			em.Transparency=0
+			local trail=Instance.new("ParticleEmitter",em)
+			em.Size=Vector3.new(0,0,0)
+			trail.Texture="rbxassetid://170478374"
+			trail.Transparency=NumberSequence.new(trans)
+			trail.LockedToPart=false
+			trail.Rate=499999997952.000
+			trail.Size=NumberSequence.new(sizes)
+			trail.Lifetime=NumberRange.new(5,5,5)
+			trail.Speed=NumberRange.new(0,0,0)
+			trail.LightEmission=1
+			trail.Enabled=false
+			local BP=Instance.new("BodyPosition")
+			BP.maxForce=Vector3.new(500,500,500)
+			BP.Position=OTorso.Position
+			--Play sound
+			wait(4)
+			trail.Enabled=true
+			em.Anchored=false
+			em.Transparency=0
+			BP.Parent=em
+			wait(1.5)
+			em:Destroy()
+			end)
+						end
+						local SPLASH=Instance.new("Sound",Character)
+						SPLASH.SoundId="rbxassetid://536523766"
+						SPLASH.Volume=3
+						local EXPLOSION=Instance.new("Sound",Character)
+						EXPLOSION.SoundId="rbxassetid://165969964"
+						SPLASH:Play()
+						for i=1,40 do
+						Shoot2()
+						Shoot2()
+						Shoot2()
+						end
+						wait(6)
+						
+						
+						
+local ring1 = part(Character,true,false,Vector3.new(0,0,0),OTorso.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10)),Color3.new(0,1,0),"Neon",0)
+	local rm = Instance.new("SpecialMesh",ring1)
+	rm.MeshType="Brick"
+	rm.Scale = Vector3.new(250,250,250)
+	local ring2 = ring1:Clone()
+	ring2.Parent=Character
+	local rm2 = Instance.new("SpecialMesh", ring2)
+	rm2.MeshType="Brick"
+	rm2.Scale =Vector3.new(250,250,250)
+	local block1 = part(Character,true,false,Vector3.new(0,0,0),OTorso.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10)),Color3.new(0,1,0),"Neon",0)
+	local bm = Instance.new("BlockMesh",block1)
+	bm.Scale=Vector3.new(500,500,500)
+	local block2=block1:Clone()
+	local bm2=bm:Clone()
+	block2.Parent=Character
+	bm2.Parent=block2
+	block2.CFrame=OTorso.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+	spawn(function()
+		for ii=1,3 do
+	for i, v in pairs(Player:GetChildren()) do
+		if v.ClassName=="Part" and v.Name=="GreenBean" then
+			v:Destroy()
+		end
+	end
+	wait(.2)
+	end
+	end)
+	EXPLOSION:Play()
+	spawn(function()
+		for i = 1,50 do
+			block1.CFrame=block1.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+			block2.CFrame=block2.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+			block1.Transparency=i/50
+			block2.Transparency=i/50
+			wait()
+		end
+	end)
+	for i = 1,50 do
+		ring1.CFrame=ring1.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+		ring2.CFrame=ring2.CFrame*CFrame.Angles(math.random(-10,10),math.random(-10,10),math.random(-10,10))
+		ring1.Transparency = i/50
+		ring2.Transparency = i/50
+		wait()
+	end
+	ring1:Destroy()
+	ring2:Destroy()			
+				OTorso.Position=OTorso.Position+Vector3.new(0,.001,0)		
+						
+						end
+					end
+					HasHit=false
+				end
+			end)
+			pcall(function()
+			for i, v in pairs(Player:GetChildren()) do
+		if v.ClassName=="Part" and v.Name=="GreenBean" then
+			v:Destroy()
+		end
+			end
+			end)
+			for i=1,160 do
+				h:wait()
+				em.CFrame=em.CFrame*CFrame.new(0,0,-2)
+				--HitBParent.CFrame=HitBParent.CFrame*CFrame.new(0,0,-2)
+				if HasHit==true then
+					pcall(function()
+					em:Destroy()
+					end)
+					break
+				end
+			end
+			
+			pcall(function()
+					em:Destroy()
+					HITBOX:Destroy()
+					HitBParent:Destroy()
+					end)
+			end)
+		end
+		pcall(function()
+			for i, v in pairs(Player:GetChildren()) do
+		if v.ClassName=="Part" and v.Name=="GreenBean" then
+			v:Destroy()
+		end
+			end
+			end)
+		Shoot()
+		
+		repeat 
+			wait()
+		until Character:FindFirstChild("em")==nil and HasHit==false
+		PosPart:Destroy()
+			Neck.C0 = necko
+		LH.C0 = LHC0
+		LS.C0 = LSC0
+		RH.C0 = RHC0
+		RS.C0 = RSC0
+		Torso.Anchored=false
+		HasHit=false
+		Debounce=false
+	end
+end)
+Mouse.KeyDown:connect(function(Key)
+	if Key=="g" then
+		BloodSpurt(Character,Torso.CFrame)
+	end
+end)
+SOUNDT={"rbxassetid://171370547","rbxassetid://466379148"}
+while true do
+	if Human.health==0 then
+		game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+game.Workspace.CurrentCamera.CameraType = "Custom"
+		local Sound=Instance.new("Sound",Character)
+		Sound.SoundId=SOUNDT[math.random(#SOUNDT)]
+		Sound:Play()
+		wait(100)
+	end
+	wait()
+end
